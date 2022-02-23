@@ -3,8 +3,5 @@
 <iframe width=1200 height=800></iframe>
   <script>
     const iframeEl = document.querySelector('iframe');
-    const nextQueryValue = !location.search ? 1 :
-      Number(location.search.split("?").pop()) + 1;
-
-    iframeEl.src = `index.html?${nextQueryValue}`;
+    iframeEl.src = "https://kronifer.github.io#" + Math.random();
   </script>
