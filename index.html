@@ -1,3 +1,10 @@
 <h1>Really cool website</h1>
 
-<iframe src="https://kronifer.github.io" width="600" height="300"></iframe>
+<iframe></iframe>
+  <script>
+    const iframeEl = document.querySelector('iframe');
+    const nextQueryValue = !location.search ? 1 :
+      Number(location.search.split("?").pop()) + 1;
+
+    iframeEl.src = `index.html?${nextQueryValue}`;
+  </script>
