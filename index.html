@@ -1,7 +1,10 @@
 <h1>Really cool website</h1>
 
-<iframe width=1200 height=800></iframe>
   <script>
     const iframeEl = document.querySelector('iframe');
-    iframeEl.src = "index.html?" + Math.floor(Math.random() * 100000)+1);
+    const nextQueryValue = !location.search ? 1 :
+      Number(location.search.split("?").pop()) + 1;
+
+    iframeEl.src = `index.html?${nextQueryValue}`;
   </script>
+t>
