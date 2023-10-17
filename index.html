@@ -1,46 +1,194 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
+    rel="stylesheet"
+  />
 </head>
-<body style="font-family:'Open Sans', sans-serif;">
-<div style="text-align:center;" id="initial">
-<h1>Reaction Test</h1>
-<p>Press the correct arrow key for the arrow shown on screen.</p>
-<input type="button" onclick="begin()" value="Begin">
-</div>
-<div style="height:100%;display:none;text-align:center;flex-direction:column;flex-wrap:wrap;" id="game">
-<h1 style="flex-basis:100%;">Press the correct arrow key for the arrow shown on screen.</h1>
-<h3 style="flex-basis:100%;">Done: 0/20</h3>
-</div>
-<div style="width:100%;display:none;" id="game-arrows">
-<img id="a1" src="./arrow.png" style="position:relative;left:0%transform:scaleX(-1);" width="25%" hidden="hidden">
-<img id="a2" src="./arrow.png" style="position:relative;left:50%;" width="25%" hidden="hidden">
-</div>
-<script>
-let times = [];
-let test = 0;
-let lTest = -1;
-let t1;
-let t2;
-function begin() {
-    document.getElementById("initial").parentNode.removeChild(document.getElementById("initial"));
-    document.getElementById("game").style.display = "flex";
-    document.getElementById("game-arrows").style.display = "";
-    while(true) {
-        if (test != lTest && test <=4) {
-            lTest = test;
-            t1 = Date.now();
-            if(Math.random()*2 == 0) {
-                document.getElementById("a1").hidden = false;
-            }
-            else {
-                document.getElementById("a2").hidden = false;
-            }
+<body style="font-family: &quot;Open Sans&quot;, sans-serif">
+  <div style="text-align: center" id="initial">
+    <h1>Reaction Test</h1>
+    <p>
+      Press the arrow key or on-screen button with the same direction as the
+      arrow shown on screen.
+    </p>
+    <input
+      style="width: 25%; height: 2rem; font-size: 1rem"
+      type="button"
+      onclick="begin()"
+      value="Begin"
+    />
+  </div>
+  <div
+    style="
+      height: 100%;
+      display: none;
+      text-align: center;
+      flex-direction: column;
+      flex-wrap: wrap;
+    "
+    id="game"
+  >
+    <h1 style="flex-basis: 100%" id="game-header">
+      Press the correct arrow key for the arrow shown on screen.
+    </h1>
+    <h3 style="flex-basis: 100%" id="game-done">Test: 1/20</h3>
+    <h3 style="flex-basis: 100%" id="game-score">Score: 0</h3>
+    <h3 style="flex-basis: 100%" id="game-avg"></h3>
+  </div>
+  <div style="width: 100%; display: none" id="game-arrows">
+    <img
+      id="a1"
+      src="./arrow.png"
+      style="position: relative; left: 0%; transform: scaleX(-1)"
+      width="25%"
+      hidden="false"
+    />
+    <img
+      id="a2"
+      src="./arrow.png"
+      style="position: relative; left: 75%"
+      width="25%"
+      hidden="false"
+    />
+    <br />
+    <input
+      type="button"
+      onclick="lClick()"
+      style="
+        font-size: 1rem;
+        position: relative;
+        left: 0%;
+        width: 25%;
+        height: 2rem;
+      "
+      value="Left"
+    />
+    <input
+      type="button"
+      onclick="rClick()"
+      style="
+        font-size: 1rem;
+        position: relative;
+        left: 50%;
+        width: 25%;
+        height: 2rem;
+      "
+      value="Right"
+    />
+  </div>
+  <script>
+    let times = [];
+    let tests = [];
+    let t1;
+    let currentTest = 0;
+    let currentAnswer;
+    let score = 0;
+
+    function nextTest() {
+      if (currentTest == 20) {
+        let avg = 0;
+        for (let i = 0; i < times.length; i++) {
+          avg += times[i];
         }
+        avg /= times.length;
+        document.getElementById("game-arrows").style.display = "none";
+        document.getElementById("game-header").innerText = "You're done!";
+        document.getElementById(
+          "game-avg",
+        ).innerText = `Average time to right answer: ${avg} seconds.`;
+        return;
+      }
+      document.getElementById("a1").hidden = true;
+      document.getElementById("a2").hidden = true;
+      let test = tests[currentTest];
+      if (test[0] == 0) {
+        var currentArrow = document.getElementById("a1");
+      } else {
+        var currentArrow = document.getElementById("a2");
+      }
+      if (test[1] == 0) {
+        currentArrow.style.transform = "scaleX(-1)";
+        currentAnswer = "l";
+      } else {
+        currentArrow.style.transform = "scaleX(1)";
+        currentAnswer = "r";
+      }
+      currentArrow.hidden = false;
+      currentTest++;
+      t1 = Date.now();
     }
-}
-</script>
+
+    function lClick() {
+      if (currentAnswer == "l") {
+        score++;
+        times.push((Date.now() - t1) / 1000);
+      }
+      if (currentTest != 20) {
+        document.getElementById("game-done").innerText = `Test: ${
+          currentTest + 1
+        }/20`;
+      }
+      document.getElementById("game-score").innerText = `Score: ${score}`;
+      nextTest();
+    }
+
+    function rClick() {
+      if (currentAnswer == "r") {
+        score++;
+        times.push((Date.now() - t1) / 1000);
+      }
+      if (currentTest != 20) {
+        document.getElementById("game-done").innerText = `Test: ${
+          currentTest + 1
+        }/20`;
+      }
+      document.getElementById("game-score").innerText = `Score: ${score}`;
+      nextTest();
+    }
+
+    function begin() {
+      window.addEventListener("keydown", (event) => {
+        if (event.code == "ArrowLeft") {
+          lClick();
+        } else if (event.code == "ArrowRight") {
+          rClick();
+        }
+      });
+      document
+        .getElementById("initial")
+        .parentNode.removeChild(document.getElementById("initial"));
+      document.getElementById("game").style.display = "flex";
+      document.getElementById("game-arrows").style.display = "block";
+      for (let i = 0; i < 20; i++) {
+        if (i <= 4) {
+          var lOrR = Math.random();
+          if (lOrR < 0.5) {
+            tests.push([0, 0]);
+          } else {
+            tests.push([1, 1]);
+          }
+        } else {
+          var j1 = Math.random();
+          var j2 = Math.random();
+          var test = [];
+          if (j1 < 0.5) {
+            test.push(0);
+          } else {
+            test.push(1);
+          }
+          if (j2 < 0.5) {
+            test.push(0);
+          } else {
+            test.push(1);
+          }
+          tests.push(test);
+        }
+      }
+      nextTest();
+    }
+  </script>
 </body>
