@@ -89,7 +89,7 @@
     let score = 0;
 
     function nextTest() {
-      if (currentTest == 20) {
+      if (currentTest == 50) {
         let avg = 0;
         for (let i = 0; i < times.length; i++) {
           avg += times[i];
@@ -127,10 +127,10 @@
         score++;
         times.push((Date.now() - t1) / 1000);
       }
-      if (currentTest != 20) {
+      if (currentTest != 50) {
         document.getElementById("game-done").innerText = `Test: ${
           currentTest + 1
-        }/20`;
+        }/50`;
       }
       document.getElementById("game-score").innerText = `Score: ${score}`;
       nextTest();
@@ -141,10 +141,10 @@
         score++;
         times.push((Date.now() - t1) / 1000);
       }
-      if (currentTest != 20) {
+      if (currentTest != 50) {
         document.getElementById("game-done").innerText = `Test: ${
           currentTest + 1
-        }/20`;
+        }/50`;
       }
       document.getElementById("game-score").innerText = `Score: ${score}`;
       nextTest();
