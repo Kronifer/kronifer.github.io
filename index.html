@@ -87,9 +87,11 @@
     let currentTest = 0;
     let currentAnswer;
     let score = 0;
+    let done = false;
 
     function nextTest() {
       if (currentTest == 50) {
+        done = true;
         let avg = 0;
         for (let i = 0; i < times.length; i++) {
           avg += times[i];
@@ -152,6 +154,9 @@
 
     function begin() {
       window.addEventListener("keydown", (event) => {
+        if(done) {
+          return;
+        }
         if (event.code == "ArrowLeft") {
           lClick();
         } else if (event.code == "ArrowRight") {
