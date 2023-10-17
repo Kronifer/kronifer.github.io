@@ -35,7 +35,7 @@
     <h1 style="flex-basis: 100%" id="game-header">
       Press the correct arrow key for the arrow shown on screen.
     </h1>
-    <h3 style="flex-basis: 100%" id="game-done">Test: 1/20</h3>
+    <h3 style="flex-basis: 100%" id="game-done">Test: 1/50</h3>
     <h3 style="flex-basis: 100%" id="game-score">Score: 0</h3>
     <h3 style="flex-basis: 100%" id="game-avg"></h3>
   </div>
@@ -163,7 +163,7 @@
         .parentNode.removeChild(document.getElementById("initial"));
       document.getElementById("game").style.display = "flex";
       document.getElementById("game-arrows").style.display = "block";
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 50; i++) {
         if (i <= 4) {
           var lOrR = Math.random();
           if (lOrR < 0.5) {
