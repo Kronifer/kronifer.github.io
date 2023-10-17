@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+</head>
+<body style="font-family:'Open Sans', sans-serif;">
+<div style="text-align:center;" id="initial">
+<h1>Reaction Test</h1>
+<p>Press the correct arrow key for the arrow shown on screen.</p>
+<input type="button" onclick="begin()" value="Begin">
+</div>
+<div style="height:100%;display:none;text-align:center;flex-direction:column;flex-wrap:wrap;" id="game">
+<h1 style="flex-basis:100%;">Press the correct arrow key for the arrow shown on screen.</h1>
+<h3 style="flex-basis:100%;">Done: 0/20</h3>
+</div>
+<div style="width:100%;display:none;" id="game-arrows">
+<img id="a1" src="./arrow.png" style="position:relative;left:0%transform:scaleX(-1);" width="25%" hidden="hidden">
+<img id="a2" src="./arrow.png" style="position:relative;left:50%;" width="25%" hidden="hidden">
+</div>
+<script>
+let times = [];
+let test = 0;
+let lTest = -1;
+let t1;
+let t2;
+function begin() {
+    document.getElementById("initial").parentNode.removeChild(document.getElementById("initial"));
+    document.getElementById("game").style.display = "flex";
+    document.getElementById("game-arrows").style.display = "";
+    while(true) {
+        if (test != lTest && test <=4) {
+            lTest = test;
+            t1 = Date.now();
+            if(Math.random()*2 == 0) {
+                document.getElementById("a1").hidden = false;
+            }
+            else {
+                document.getElementById("a2").hidden = false;
+            }
+        }
+    }
+}
+</script>
+</body>
